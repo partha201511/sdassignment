@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "./Home.css"; // ✅ Import CSS
 
 const allPosts = [
   {
@@ -75,66 +76,29 @@ function Home() {
   };
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        backgroundColor: "#f9f9f9", // light gray background
-        minHeight: "100vh",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        color: "#333",
-      }}
-    >
-      <h1
-        style={{
-          color: "#2c3e50",
-          borderBottom: "2px solid #2980b9",
-          paddingBottom: "10px",
-        }}
-      >
-        Blog Posts
-      </h1>
+    <div className="home-container">
+      <h1 className="home-title">📖 Blog Posts</h1>
 
       {currentPosts.map((post) => (
-        <div
-          key={post.id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "15px",
-            marginBottom: "15px",
-            borderRadius: "8px",
-            backgroundColor: "white",
-            boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-          }}
-        >
-          <h2 style={{ color: "#2980b9" }}>{post.title}</h2>
-          <p>{post.content}</p>
+        <div className="post-card" key={post.id}>
+          <h2 className="post-title">{post.title}</h2>
+          <p className="post-content">{post.content}</p>
           <p>
-            Author:{" "}
-            <Link
-              to={`/author/${post.author}`}
-              style={{ color: "#e67e22", fontWeight: "bold" }}
-            >
+            <strong>Author:</strong>{" "}
+            <Link to={`/author/${post.author}`} className="author-link">
               {post.author}
             </Link>
           </p>
 
           {/* Post reactions */}
-          <div>
+          <div className="reactions">
             {reactions.map(({ id, emoji }) => {
               const isActive = activeReactions[post.id] === id;
               return (
                 <button
                   key={id}
                   onClick={() => handleReactionClick(post.id, id)}
-                  style={{
-                    fontSize: "20px",
-                    marginRight: "8px",
-                    cursor: "pointer",
-                    backgroundColor: isActive ? "#cce5ff" : "transparent",
-                    border: "none",
-                    outline: "none",
-                  }}
-                  aria-label={id}
+                  className={`reaction-btn ${isActive ? "active" : ""}`}
                 >
                   {emoji}
                 </button>
@@ -143,30 +107,26 @@ function Home() {
           </div>
 
           {/* Comments */}
-          <div style={{ marginLeft: "20px", marginTop: "10px" }}>
-            <h4 style={{ color: "#555" }}>Comments:</h4>
+          <div className="comments-section">
+            <h4>💬 Comments:</h4>
             {post.comments.length === 0 && <p>No comments yet.</p>}
             {post.comments.map((comment) => {
               const key = `${post.id}-${comment.id}`;
               return (
-                <div key={comment.id} style={{ marginBottom: "8px" }}>
+                <div key={comment.id} className="comment-card">
                   <b>{comment.author}:</b> {comment.text}
-                  <div>
+                  <div className="comment-reactions">
                     {reactions.map(({ id, emoji }) => {
                       const isActive = activeCommentReactions[key] === id;
                       return (
                         <button
                           key={id}
-                          onClick={() => handleCommentReactionClick(key, id)}
-                          style={{
-                            fontSize: "18px",
-                            marginRight: "5px",
-                            backgroundColor: isActive ? "#d4edda" : "transparent",
-                            border: "none",
-                            cursor: "pointer",
-                            outline: "none",
-                          }}
-                          aria-label={id}
+                          onClick={() =>
+                            handleCommentReactionClick(key, id)
+                          }
+                          className={`reaction-btn ${
+                            isActive ? "comment-active" : ""
+                          }`}
                         >
                           {emoji}
                         </button>
@@ -181,21 +141,12 @@ function Home() {
       ))}
 
       {/* Pagination */}
-      <div style={{ marginTop: "20px" }}>
+      <div className="pagination">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
           <button
             key={num}
             onClick={() => setCurrentPage(num)}
-            style={{
-              marginRight: "8px",
-              fontWeight: currentPage === num ? "bold" : "normal",
-              cursor: "pointer",
-              padding: "5px 10px",
-              borderRadius: "4px",
-              border: "1px solid #2980b9",
-              backgroundColor: currentPage === num ? "#2980b9" : "white",
-              color: currentPage === num ? "white" : "#2980b9",
-            }}
+            className={`page-btn ${currentPage === num ? "active-page" : ""}`}
           >
             {num}
           </button>

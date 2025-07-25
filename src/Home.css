@@ -1,0 +1,115 @@
+/* Background & container */
+.home-container {
+  padding: 30px;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #d0e6f6, #f9f9f9);
+  color: #333;
+}
+
+/* Heading */
+.home-title {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 2.4rem;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 10px;
+}
+
+/* Post cards */
+.post-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 0 auto 20px;
+  border-radius: 12px;
+  background-color: white;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+.post-card:hover {
+  transform: scale(1.02);
+}
+
+/* Post titles */
+.post-title {
+  color: #2980b9;
+  margin-bottom: 8px;
+}
+.post-content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Author link */
+.author-link {
+  color: #e67e22;
+  font-weight: bold;
+  text-decoration: none;
+}
+.author-link:hover {
+  text-decoration: underline;
+}
+
+/* Reactions */
+.reactions {
+  margin-top: 10px;
+}
+.reaction-btn {
+  font-size: 22px;
+  margin-right: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  transition: 0.2s;
+}
+.reaction-btn.active {
+  background-color: #cce5ff;
+  border-radius: 6px;
+}
+
+/* Comments section */
+.comments-section {
+  margin-top: 20px;
+  padding-left: 10px;
+}
+.comment-card {
+  background: #f7f9fb;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.comment-reactions {
+  margin-top: 5px;
+}
+.reaction-btn.comment-active {
+  background-color: #d4edda;
+  border-radius: 6px;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 30px;
+  text-align: center;
+}
+.page-btn {
+  margin-right: 10px;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #2980b9;
+  background: white;
+  color: #2980b9;
+  transition: 0.3s;
+}
+.page-btn.active-page {
+  background: #2980b9;
+  color: white;
+}
+.page-btn:hover {
+  background: #3498db;
+  color: white;
+}
