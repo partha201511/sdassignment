@@ -24,7 +24,7 @@ function Profile() {
         Author Profile: {name}
       </h1>
       <p style={{ fontSize: "18px", marginBottom: "40px" }}>
-        This is a minimal author profile page for <b>{name}</b>.
+        Welcome to the page of <b>{name}</b>.
       </p>
       <Link
         to="/"

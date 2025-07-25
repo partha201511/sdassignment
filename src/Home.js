@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const allPosts = [
   {
     id: 1,
-    title: "First Post",
+    title: "First Blog",
     author: "Partha",
     content: "This is the first post",
     comments: [
@@ -14,28 +14,28 @@ const allPosts = [
   },
   {
     id: 2,
-    title: "Second Post",
+    title: "Second Blog",
     author: "Emon",
     content: "This is the second post",
     comments: [{ id: 3, author: "Grace", text: "Interesting thoughts." }],
   },
   {
     id: 3,
-    title: "Third Post",
+    title: "Third Blog",
     author: "Samia",
     content: "This is the third post",
     comments: [],
   },
   {
     id: 4,
-    title: "Fourth Post",
+    title: "Fourth Blog",
     author: "Rabib",
     content: "This is the fourth post",
     comments: [{ id: 4, author: "Heidi", text: "Loved this one." }],
   },
   {
     id: 5,
-    title: "Fifth Post",
+    title: "Fifth Blog",
     author: "Rakey",
     content: "This is the fifth post",
     comments: [],
