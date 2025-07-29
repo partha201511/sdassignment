@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Home.css"; // ✅ Import CSS
+import "./Home.css"; 
 
 const allPosts = [
   {
@@ -9,8 +9,8 @@ const allPosts = [
     author: "Partha",
     content: "This is the first post",
     comments: [
-      { id: 1, author: "Eve", text: "Nice post!" },
-      { id: 2, author: "Frank", text: "Thanks for sharing." },
+      { id: 1, author: "Dip", text: "Nice post!" },
+      { id: 2, author: "sakin", text: "Thanks for sharing." },
     ],
   },
   {
@@ -18,7 +18,7 @@ const allPosts = [
     title: "Second Blog",
     author: "Emon",
     content: "This is the second post",
-    comments: [{ id: 3, author: "Grace", text: "Interesting thoughts." }],
+    comments: [{ id: 3, author: "Esteak", text: "Interesting thoughts." }],
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const allPosts = [
     title: "Fourth Blog",
     author: "Rabib",
     content: "This is the fourth post",
-    comments: [{ id: 4, author: "Heidi", text: "Loved this one." }],
+    comments: [{ id: 4, author: "Mahir", text: "Loved this one." }],
   },
   {
     id: 5,
