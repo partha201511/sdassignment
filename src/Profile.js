@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 
-// Adjust this import path exactly to your Profile.js location
-import parthaImg from "./images/partha.jpg"; // <-- CHANGE if Profile.js is in subfolder
+
+import parthaImg from "./images/partha.jpg"; 
 
 import "./Profile.css";
 

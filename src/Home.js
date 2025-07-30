@@ -7,7 +7,7 @@ const allPosts = [
     id: 1,
     title: "First Blog",
     author: "Partha",
-    content: "This is the first post",
+    content: "আবার আসিব ফিরে ধানসিড়ির তীরে — এই বাংলায়..হয়তো মানুষ নয় ,হয়তো বা শঙ্খচিল শালিকের বেশে;হয়তো ভোরের কাক হয়ে এই কার্তিকের নবান্নের দেশে||(জীবনানন্দ দাশ)",
     comments: [
       { id: 1, author: "Dip", text: "sera!" },
       { id: 2, author: "sakin", text: "Ekdom Baje!" },
