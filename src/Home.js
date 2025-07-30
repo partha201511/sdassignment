@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Home.css"; 
+import "./Home.css";
 
 const allPosts = [
   {
@@ -9,8 +9,8 @@ const allPosts = [
     author: "Partha",
     content: "This is the first post",
     comments: [
-      { id: 1, author: "Dip", text: "Nice post!" },
-      { id: 2, author: "sakin", text: "Thanks for sharing." },
+      { id: 1, author: "Dip", text: "sera!" },
+      { id: 2, author: "sakin", text: "Ekdom Baje!" },
     ],
   },
   {
@@ -18,7 +18,7 @@ const allPosts = [
     title: "Second Blog",
     author: "Emon",
     content: "This is the second post",
-    comments: [{ id: 3, author: "Esteak", text: "Interesting thoughts." }],
+    comments: [{ id: 3, author: "Esteak", text: "Sundor Mama" }],
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const allPosts = [
     title: "Fourth Blog",
     author: "Rabib",
     content: "This is the fourth post",
-    comments: [{ id: 4, author: "Mahir", text: "Loved this one." }],
+    comments: [{ id: 4, author: "Mahir", text: "valo hoise" }],
   },
   {
     id: 5,
@@ -46,33 +46,48 @@ const allPosts = [
 const reactions = [
   { id: "like", emoji: "👍" },
   { id: "love", emoji: "❤️" },
-  { id: "laugh", emoji: "😂" },
+  { id: "dislike", emoji: "👎" },
 ];
 
 function Home() {
-  const [activeReactions, setActiveReactions] = useState({});
-  const [activeCommentReactions, setActiveCommentReactions] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
+  const [postReactions, setPostReactions] = useState({});
+  const [commentReactions, setCommentReactions] = useState({});
+  const [replies, setReplies] = useState({});
+  const [replyInputs, setReplyInputs] = useState({});
 
+  const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 2;
   const totalPages = Math.ceil(allPosts.length / postsPerPage);
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = allPosts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const handleReactionClick = (postId, reactionId) => {
-    setActiveReactions((prev) => ({
-      ...prev,
-      [postId]: prev[postId] === reactionId ? null : reactionId,
-    }));
+  const handleReaction = (targetId, reactionId, state, setState) => {
+    setState((prev) => {
+      const current = prev[targetId];
+      const newReactions = { ...prev };
+
+      if (current?.type === reactionId) {
+        delete newReactions[targetId]; 
+      } else {
+        newReactions[targetId] = { type: reactionId };
+      }
+
+      return newReactions;
+    });
   };
 
-  const handleCommentReactionClick = (key, reactionId) => {
-    setActiveCommentReactions((prev) => ({
+  const handleReplyChange = (key, value) => {
+    setReplyInputs((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleReplySubmit = (key) => {
+    if (!replyInputs[key]) return;
+    setReplies((prev) => ({
       ...prev,
-      [key]: prev[key] === reactionId ? null : reactionId,
+      [key]: [...(prev[key] || []), replyInputs[key]],
     }));
+    setReplyInputs((prev) => ({ ...prev, [key]: "" }));
   };
 
   return (
@@ -90,23 +105,24 @@ function Home() {
             </Link>
           </p>
 
-          {/* Post reactions */}
           <div className="reactions">
             {reactions.map(({ id, emoji }) => {
-              const isActive = activeReactions[post.id] === id;
+              const active = postReactions[post.id]?.type === id;
               return (
                 <button
                   key={id}
-                  onClick={() => handleReactionClick(post.id, id)}
-                  className={`reaction-btn ${isActive ? "active" : ""}`}
+                  onClick={() =>
+                    handleReaction(post.id, id, postReactions, setPostReactions)
+                  }
+                  className={`reaction-btn ${active ? "active" : ""}`}
                 >
-                  {emoji}
+                  <span className="reaction-icon">{emoji}</span>
+                  <span className="reaction-label">{id}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Comments */}
           <div className="comments-section">
             <h4>💬 Comments:</h4>
             {post.comments.length === 0 && <p>No comments yet.</p>}
@@ -115,23 +131,50 @@ function Home() {
               return (
                 <div key={comment.id} className="comment-card">
                   <b>{comment.author}:</b> {comment.text}
+
                   <div className="comment-reactions">
                     {reactions.map(({ id, emoji }) => {
-                      const isActive = activeCommentReactions[key] === id;
+                      const active = commentReactions[key]?.type === id;
                       return (
                         <button
                           key={id}
                           onClick={() =>
-                            handleCommentReactionClick(key, id)
+                            handleReaction(
+                              key,
+                              id,
+                              commentReactions,
+                              setCommentReactions
+                            )
                           }
                           className={`reaction-btn ${
-                            isActive ? "comment-active" : ""
+                            active ? "comment-active" : ""
                           }`}
                         >
-                          {emoji}
+                          <span className="reaction-icon">{emoji}</span>
+                          <span className="reaction-label">{id}</span>
                         </button>
                       );
                     })}
+                  </div>
+
+                  <div className="reply-section">
+                    {(replies[key] || []).map((reply, index) => (
+                      <div className="reply" key={index}>
+                        <b>You:</b> {reply}
+                      </div>
+                    ))}
+                    <input
+                      className="reply-input"
+                      placeholder="Write a reply..."
+                      value={replyInputs[key] || ""}
+                      onChange={(e) => handleReplyChange(key, e.target.value)}
+                    />
+                    <button
+                      className="reply-btn"
+                      onClick={() => handleReplySubmit(key)}
+                    >
+                      Reply
+                    </button>
                   </div>
                 </div>
               );
@@ -140,7 +183,6 @@ function Home() {
         </div>
       ))}
 
-      {/* Pagination */}
       <div className="pagination">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
           <button
